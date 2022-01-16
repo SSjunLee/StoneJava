@@ -81,6 +81,10 @@ public class BinaryExpr extends ASTList {
             return a > b ? TRUE : FALSE;
         else if (op.equals("<"))
             return a < b ? TRUE : FALSE;
+        else if (op.equals(">="))
+            return a >=b ? TRUE : FALSE;
+        else if (op.equals("<="))
+            return a <=b ? TRUE : FALSE;
         else
             throw new StoneException("bad operator", this);
     }

@@ -5,6 +5,7 @@ import com.ljn.stone.env.BaseEnv;
 import com.ljn.stone.env.Env;
 import com.ljn.stone.env.NestedEnv;
 import com.ljn.stone.exception.ParserException;
+import com.ljn.stone.naive.Naive;
 import com.ljn.stone.parser.BasicParser;
 import com.ljn.stone.parser.FunctionParser;
 
@@ -49,6 +50,6 @@ public class Interpreter {
     }
 
     public static void main(String[] args) throws FileNotFoundException, ParserException {
-        run(new FunctionParser(), new NestedEnv(), args);
+        run(new FunctionParser(), new Naive().register(new NestedEnv()), args);
     }
 }

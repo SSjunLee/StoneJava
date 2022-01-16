@@ -7,6 +7,7 @@ import com.ljn.stone.ast.ASTree;
 import com.ljn.stone.ast.Postfix;
 import com.ljn.stone.env.Env;
 import com.ljn.stone.exception.StoneException;
+import com.ljn.stone.naive.NaiveFunction;
 
 import java.util.List;
 
@@ -18,11 +19,8 @@ public class Args extends Postfix {
         super(list);
     }
 
-    @Override
-    public Object eval(Env callerEnv, Object function) {
-        if (!(function instanceof StoneFunction)) {
-            throw new StoneException("bad function ", this);
-        }
+
+    private Object evalFunc(Env callerEnv, Object function) {
         StoneFunction func = (StoneFunction) function;
         ParamList params = func.paramList(); //形参列表,形参列表记录着参数的名字
         //比较形参和实参的个数
@@ -42,6 +40,33 @@ public class Args extends Postfix {
             params.eval(funcEnv, i++, value);
         }
         return func.body().eval(funcEnv);
+    }
+
+    private Object evalNaive(Env callerEnv, NaiveFunction naiveFunction) {
+        int numParams = naiveFunction.numParams();
+        if (size() != numParams) {
+            throw new StoneException("bad numbers of args", this);
+        }
+        Object args[] = new Object[numParams];
+        int i = 0;
+        for (ASTree arg : this) {
+            args[i++] = arg.eval(callerEnv);
+        }
+        return naiveFunction.invoke(this, args);
+    }
+
+
+    @Override
+    public Object eval(Env callerEnv, Object function) {
+        if (function instanceof NaiveFunction) {
+            return evalNaive(callerEnv, (NaiveFunction) function);
+        }
+
+        if (!(function instanceof StoneFunction)) {
+            throw new StoneException("bad function ", this);
+        }
+        return evalFunc(callerEnv, function);
+
     }
 
     public int size() {

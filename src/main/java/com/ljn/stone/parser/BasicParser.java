@@ -48,6 +48,8 @@ public class BasicParser {
         operators.add("*", 4, Element.Operator.LEFT);
         operators.add("/", 4, Element.Operator.LEFT);
         operators.add("%", 4, Element.Operator.LEFT);
+        operators.add(">=", 2, Element.Operator.LEFT);
+        operators.add("<=", 2, Element.Operator.LEFT);
 
 
     }

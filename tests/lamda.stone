@@ -1,2 +1,11 @@
-a = (x)=>{x+1}
-a(2)
+def get(c){
+    ()=>{c=c+1}
+}
+print("time is "+ currentTime())
+print(length("hehehe"))
+print(c = get(0))
+c()
+c()
+c()
+c()
+print(c())

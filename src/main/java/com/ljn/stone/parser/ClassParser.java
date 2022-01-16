@@ -18,8 +18,8 @@ public class ClassParser extends FunctionParser {
             .identifier(reserved).option(rule().sep("extends").identifier(reserved))
             .option(rule().sep(Token.eol))
             .ast(classBody);
-    protected Rule newStmt = rule(NewStmt.class).sep("new").identifier(reserved)
-            .ast(postfix);
+    // a = new A 目前暂时不支持构造函数
+    protected Rule newStmt = rule(NewStmt.class).sep("new").identifier(reserved);
 
     public ClassParser() {
         program.insertChoice(defClass);

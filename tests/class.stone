@@ -1,1 +1,3 @@
-a = new A(1,2,3)
+class A{
+}
+a = new A

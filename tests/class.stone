@@ -1,8 +1,1 @@
-class a extends b
-{
-    a =1
-    b=2
-    def doit(){
-        print(a)
-    }
-}
+a = new A(1,2,3)

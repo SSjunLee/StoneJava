@@ -1,0 +1,11 @@
+a=1
+i=1
+res  = ""
+while(i<11)
+{
+    a=a+i;
+    i=i+1;
+    res = res + "aa"
+}
+res
+a

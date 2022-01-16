@@ -1,3 +1,5 @@
 class A{
+node = "hehe"
 }
 a = new A
+print(a.node)

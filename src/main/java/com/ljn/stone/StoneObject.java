@@ -1,9 +1,11 @@
 package com.ljn.stone;
 
 import com.ljn.stone.env.Env;
+import com.ljn.stone.exception.AccessException;
+
 
 public class StoneObject {
-    private static class AccessException extends Exception{}
+
     protected Env env;
 
     public StoneObject(Env env) {

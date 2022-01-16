@@ -1,8 +1,16 @@
-class B{
-ptr = "ljn"
+class B
+{
+    v = 1
 }
-class A extends B{
-node = "hehe"
+class A{
+    b = 2
 }
 a = new A
-print(a.node+" "+a.ptr)
+a=1
+print(a)
+
+
+
+
+
+

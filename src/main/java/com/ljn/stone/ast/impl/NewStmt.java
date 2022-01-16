@@ -33,7 +33,7 @@ public class NewStmt extends ASTList {
 
     @Override
     public Object eval(Env env) {
-        Env newEnv = new NestedEnv();
+        Env newEnv = new NestedEnv(env);
         StoneObject stoneObject = new StoneObject(newEnv);
         newEnv.putNew("this", stoneObject);
         StoneClassInfo c = classInfo(env);

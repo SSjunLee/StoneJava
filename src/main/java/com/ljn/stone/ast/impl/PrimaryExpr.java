@@ -17,8 +17,20 @@ public class PrimaryExpr extends ASTList {
     public ASTree operand(){return child(0);}
 
     public boolean hasPostfix(int nest){return numChildren() - nest>1;}
+
+    /**
+     * 取出倒数第nest个元素
+     * @param nest
+     * @return
+     */
     public Postfix getPostfix(int nest){return (Postfix) child(numChildren()-nest-1);}
 
+    /**
+     *
+     * @param nest：层数
+     * @param env
+     * @return
+     */
     public Object evalSubExpr(int nest,Env env){
         if(hasPostfix(nest)){
             Object target = evalSubExpr(nest+1,env);

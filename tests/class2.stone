@@ -1,0 +1,11 @@
+class B{
+ptr = "ljn"
+}
+class A extends B{
+node = "hehe"
+}
+a = new A
+print(a.node+" "+a.ptr)
+
+
+

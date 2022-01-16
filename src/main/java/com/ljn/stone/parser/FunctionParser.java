@@ -4,6 +4,7 @@ import com.ljn.stone.Token;
 import com.ljn.stone.ast.Postfix;
 import com.ljn.stone.ast.impl.Args;
 import com.ljn.stone.ast.impl.DefStmt;
+import com.ljn.stone.ast.impl.Lamda;
 import com.ljn.stone.ast.impl.ParamList;
 import com.ljn.stone.rules.Rule;
 import static com.ljn.stone.rules.Rule.rule;
@@ -22,6 +23,7 @@ public class FunctionParser extends BasicParser{
         primary.repeat(postfix);
         // func 1,2,3
         simple.option(args);
+        primary.insertChoice(rule(Lamda.class).sep("fun").ast(paramList).ast(block));
         program.insertChoice(def);
     }
 }

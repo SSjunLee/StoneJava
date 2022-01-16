@@ -38,7 +38,7 @@ public class NewStmt extends ASTList {
         newEnv.putNew("this", stoneObject);
         StoneClassInfo c = classInfo(env);
         initObject(c, newEnv);
-        return null;
+        return stoneObject;
     }
 
     private void initObject(StoneClassInfo c, Env newEnv) {

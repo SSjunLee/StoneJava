@@ -18,6 +18,11 @@ public class StoneObject {
         getEnv(member).putNew(member,value);
     }
 
+    @Override
+    public String toString() {
+       return "<obj "+hashCode()+" >";
+    }
+
     /**
      * 对象的成员必须定义在对象的env里
      * @param member

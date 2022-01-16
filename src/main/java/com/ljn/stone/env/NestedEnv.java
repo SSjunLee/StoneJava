@@ -32,6 +32,21 @@ public class NestedEnv implements Env {
 
 
     @Override
+    public void put(int nest, int idx, Object value) {
+
+    }
+
+    @Override
+    public Object get(int nest, int idx) {
+        return null;
+    }
+
+    @Override
+    public Symbols symbols() {
+        return null;
+    }
+
+    @Override
     public void put(String name, Object value) {
         Env env = where(name);
         if (env == null) env = this;

@@ -4,6 +4,22 @@ import java.util.HashMap;
 
 public class BaseEnv implements Env{
     protected HashMap<String,Object> map = new HashMap<>();
+
+    @Override
+    public void put(int nest, int idx, Object value) {
+
+    }
+
+    @Override
+    public Object get(int nest, int idx) {
+        return null;
+    }
+
+    @Override
+    public Symbols symbols() {
+        return null;
+    }
+
     @Override
     public void put(String name, Object value) {
         map.put(name,value);

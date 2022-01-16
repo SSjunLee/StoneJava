@@ -3,11 +3,14 @@ class B
     v = 1
 }
 class A{
-    b = 2
+    b = new B
+    def update(){
+       b.v = 22
+    }
 }
 a = new A
-a=1
-print(a)
+a.update()
+print(a.b.v)
 
 
 

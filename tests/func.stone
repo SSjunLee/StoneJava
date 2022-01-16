@@ -1,5 +1,4 @@
-def f(n)
-{
+def f(n) {
     if(n<2){
         n
     }else{

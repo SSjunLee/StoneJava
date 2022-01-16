@@ -23,7 +23,7 @@ public class FunctionParser extends BasicParser{
         primary.repeat(postfix);
         // func 1,2,3
         simple.option(args);
-        primary.insertChoice(rule(Lamda.class).sep("fun").ast(paramList).ast(block));
+        primary.insertChoice(rule(Lamda.class).ast(paramList).sep("=>").ast(block));
         program.insertChoice(def);
     }
 }

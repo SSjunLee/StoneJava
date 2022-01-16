@@ -121,7 +121,7 @@ public class Lexer {
         /**
          * identifyPat =  [A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|&&|\|\||\p{Punct}
          */
-        final String identifyPat = "([A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|&&|\\|\\||\\p{Punct})";
+        final String identifyPat = "([A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|=>|&&|\\|\\||\\p{Punct})";
         String reg = spacePat + "(" + commentPat + "|" + numPat + "|" + strInsidePat + "|" + identifyPat + ")";
         return Pattern.compile(reg);
     }

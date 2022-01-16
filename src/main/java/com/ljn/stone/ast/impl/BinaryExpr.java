@@ -9,6 +9,7 @@ import com.ljn.stone.exception.AccessException;
 import com.ljn.stone.exception.StoneException;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.ljn.stone.ast.impl.BoolType.TRUE;
@@ -101,22 +102,53 @@ public class BinaryExpr extends ASTList {
         }
     }
 
+
+    private Object memberAssign(PrimaryExpr primary, Env env, Object rvalue) {
+        /**
+         * 处理对象成员赋值
+         */
+        // a.b.c.d.e = x  这里相当于取出 （a.b.c.d）
+        // 如果是a.b = x  相当于取出a
+        Object t = primary.evalSubExpr(1, env);
+        if (t instanceof StoneObject) {
+            StoneObject so = (StoneObject) t;
+            Dot dot = (Dot) primary.getPostfix(0); //这里dot就是e，即最右边
+            return setFiled(so, dot.name(), rvalue);
+        }
+        throw new StoneException("bad assign member");
+    }
+
+
+    private Object arrAssign(PrimaryExpr primary, Env env, Object rvalue) {
+        /**
+         * 处理数组赋值
+         */
+        Object t = primary.evalSubExpr(1, env);
+        if (t instanceof ArrayList) {
+            ArrayList lst = (ArrayList) t;
+            ArrayRef arrayRef = (ArrayRef) primary.getPostfix(0);
+            Object idxObj = arrayRef.index().eval(env);
+            if (idxObj instanceof Integer) {
+                try {
+                    lst.set((Integer) idxObj, rvalue);
+                } catch (Exception e) {
+                    throw new StoneException("index out of range", this);
+                }
+                return rvalue;
+            }
+        }
+        throw new StoneException("bad access array", this);
+    }
+
+
     private Object computeAssign(Env env, Object rvalue) {
         ASTree l = left();
         if (l instanceof PrimaryExpr) {
             PrimaryExpr primary = (PrimaryExpr) l;
             if (primary.hasPostfix(0) && primary.getPostfix(0) instanceof Dot) {
-                /**
-                 * 处理对象成员赋值
-                 */
-                // a.b.c.d.e = x  这里相当于取出 （a.b.c.d）
-                // 如果是a.b = x  相当于取出a
-                Object t = primary.evalSubExpr(1, env);
-                if (t instanceof StoneObject) {
-                    StoneObject so = (StoneObject) t;
-                    Dot dot = (Dot) primary.getPostfix(0); //这里dot就是e，即最右边
-                    return setFiled(so, dot.name(), rvalue);
-                }
+                return memberAssign(primary, env, rvalue);
+            } else if (primary.hasPostfix(0) && primary.getPostfix(0) instanceof ArrayRef) {
+                return arrAssign(primary, env, rvalue);
             }
         }
         if (l instanceof Name) {

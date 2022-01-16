@@ -4,6 +4,7 @@ import com.ljn.stone.env.Env;
 import com.ljn.stone.exception.StoneException;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class Naive {
     public Env register(Env env) {
@@ -19,7 +20,8 @@ public class Naive {
 
     public static int length(Object s) {
         if (s instanceof String) return ((String) s).length();
-        return ((Object[]) s).length;
+        else if(s instanceof ArrayList) return ((ArrayList<?>) s).size();
+        throw new StoneException("type error!");
     }
 
     public static long startTime = System.currentTimeMillis();

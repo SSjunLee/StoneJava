@@ -4,6 +4,7 @@ def get(c){
 print("time is "+ currentTime())
 print(length("hehehe"))
 print(c = get(0))
+print(get(1)())
 c()
 c()
 c()

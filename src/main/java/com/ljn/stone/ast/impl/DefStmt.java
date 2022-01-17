@@ -1,7 +1,6 @@
 package com.ljn.stone.ast.impl;
 
-import com.ljn.stone.OptFunction;
-import com.ljn.stone.StoneFunction;
+import com.ljn.stone.member.opt.OptFunction;
 import com.ljn.stone.Util;
 import com.ljn.stone.ast.ASTLeaf;
 import com.ljn.stone.ast.ASTList;
@@ -17,6 +16,8 @@ public class DefStmt extends ASTList {
     public DefStmt(List<ASTree> list) {
         super(list);
     }
+    //返回局部变量的个数
+    public Integer locals(){return size;}
 
     public String name(){
         return ((ASTLeaf)child(0)).token().getText();

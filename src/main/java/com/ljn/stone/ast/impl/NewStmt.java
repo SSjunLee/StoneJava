@@ -1,7 +1,7 @@
 package com.ljn.stone.ast.impl;
 
-import com.ljn.stone.StoneClassInfo;
-import com.ljn.stone.StoneObject;
+import com.ljn.stone.member.StoneClassInfo;
+import com.ljn.stone.member.StoneObject;
 import com.ljn.stone.ast.ASTLeaf;
 import com.ljn.stone.ast.ASTList;
 import com.ljn.stone.ast.ASTree;

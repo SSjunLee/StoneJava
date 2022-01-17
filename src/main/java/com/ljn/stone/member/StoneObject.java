@@ -1,4 +1,4 @@
-package com.ljn.stone;
+package com.ljn.stone.member;
 
 import com.ljn.stone.env.Env;
 import com.ljn.stone.exception.AccessException;

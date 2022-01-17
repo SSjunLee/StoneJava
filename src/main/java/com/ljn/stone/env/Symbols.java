@@ -33,7 +33,7 @@ public class Symbols {
         } else return i;
     }
 
-    private Integer add(String name) {
+    protected Integer add(String name) {
         int i = table.size();
         table.put(name, i);
         return i;

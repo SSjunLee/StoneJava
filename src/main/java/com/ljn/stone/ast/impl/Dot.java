@@ -1,8 +1,7 @@
 package com.ljn.stone.ast.impl;
 
-import com.ljn.stone.StoneObject;
+import com.ljn.stone.member.StoneObject;
 import com.ljn.stone.ast.ASTLeaf;
-import com.ljn.stone.ast.ASTList;
 import com.ljn.stone.ast.ASTree;
 import com.ljn.stone.ast.Postfix;
 import com.ljn.stone.env.Env;

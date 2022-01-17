@@ -1,4 +1,4 @@
-package com.ljn.stone;
+package com.ljn.stone.member;
 
 import com.ljn.stone.ast.impl.BlockStmt;
 import com.ljn.stone.ast.impl.ParamList;

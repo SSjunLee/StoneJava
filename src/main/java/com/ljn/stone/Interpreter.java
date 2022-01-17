@@ -33,6 +33,7 @@ public class Interpreter {
         while (lexer.peek(0) != Token.eof) {
             ASTree asTree = bp.parse(lexer);
             if(asTree instanceof NullStmt)continue;
+            //先做静态检查
             asTree.lookUp(env.symbols());
             //System.out.println(asTree + " "+asTree.getClass());
             res = asTree.eval(env);

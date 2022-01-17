@@ -8,7 +8,7 @@ import com.ljn.stone.exception.StoneException;
 
 public class Name extends ASTLeaf {
     protected static final int unknown = -1;
-    protected int nest, index;
+    protected int nest, index;//nest 代表从当前frame往外面走多少步
 
     public Name(Token token) {
         super(token);
@@ -19,8 +19,9 @@ public class Name extends ASTLeaf {
         return token.getText();
     }
 
+
     /**
-     * 读变量时会调用这个方法
+     * 对右值的静态检查，先看看有没有定义，并取出它的位置坐标
      * @param symbols
      */
     @Override
@@ -41,6 +42,10 @@ public class Name extends ASTLeaf {
         }
     }
 
+    /**
+     * 赋值对左值的静态检查，如果存在，则返回位置，否则，新建对象，并返回位置
+     * @param symbols
+     */
     public void lookUpForAssign(Symbols symbols){
         Symbols.Location loc = symbols.put(name());
         index = loc.index;

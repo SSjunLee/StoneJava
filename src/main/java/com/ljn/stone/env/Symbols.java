@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Symbols {
     public static class Location{
-        public int nest,index;
+        public int nest,index; //nest 代表从当前frame往外面走多少步
         public Location(int nest,int index){
             this.nest = nest;
             this.index = index;
@@ -12,14 +12,14 @@ public class Symbols {
     }
 
     protected HashMap<String, Integer> table = new HashMap<>();
-    protected Symbols inner;
+    protected Symbols outer;
 
     public Symbols() {
         this(null);
     }
 
     public Symbols(Symbols outer) {
-        this.inner = outer;
+        this.outer = outer;
     }
 
     public Integer find(String name) {
@@ -50,9 +50,9 @@ public class Symbols {
     public Location get(String name,int nest){
         Integer index = table.get(name);
         if(index == null){
-            if(inner == null)
+            if(outer == null)
                 return null;
-            return inner.get(name,nest+1);
+            return outer.get(name,nest+1);
         }
         return new Location(nest,index);
     }

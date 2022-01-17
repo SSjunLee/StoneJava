@@ -5,6 +5,7 @@ import com.ljn.stone.ast.ASTLeaf;
 import com.ljn.stone.ast.ASTList;
 import com.ljn.stone.ast.ASTree;
 import com.ljn.stone.env.Env;
+import com.ljn.stone.env.Symbols;
 import com.ljn.stone.exception.AccessException;
 import com.ljn.stone.exception.StoneException;
 
@@ -141,6 +142,21 @@ public class BinaryExpr extends ASTList {
     }
 
 
+    @Override
+    public void lookUp(Symbols symbols) {
+        ASTree left = left();
+        if (op().equals("=")){
+            if(left instanceof Name){
+                Name l = (Name) left;
+                l.lookUpForAssign(symbols);
+                right().lookUp(symbols);
+                return;
+            }
+        }
+        left.lookUp(symbols);
+        right().lookUp(symbols);
+    }
+
     private Object computeAssign(Env env, Object rvalue) {
         ASTree l = left();
         if (l instanceof PrimaryExpr) {
@@ -153,7 +169,8 @@ public class BinaryExpr extends ASTList {
         }
         if (l instanceof Name) {
             Name name = (Name) l;
-            env.put(name.name(), rvalue);
+            name.evalForAssign(env,rvalue);
+            //env.put(name.name(), rvalue);
             return rvalue;
         } else
             throw new StoneException("bad assign" + this);

@@ -1,5 +1,5 @@
 def get(c){
-    ()=>{c=c+1}
+    lamda()=>{c=c+1}
 }
 print("time is "+ currentTime())
 print(length("hehehe"))

@@ -5,11 +5,20 @@ import java.util.Arrays;
 public class ResizeArrayEnv extends ArrayEnv{
 
     protected Symbols names;
+
+
+    @Override
+    public Symbols symbols() {
+        return names;
+    }
+
+    public ResizeArrayEnv(){this(10);}
+
     public ResizeArrayEnv(int size) {
         super(size,null);
         names = new Symbols();
     }
-    public Symbols names(){return names;}
+
 
     @Override
     public Object get(String name) {
@@ -45,6 +54,14 @@ public class ResizeArrayEnv extends ArrayEnv{
         }
         super.put(nest, idx, value);
     }
+
+    @Override
+    public Env where(String name) {
+        if(names.find(name)!=null)return this;
+        if(outer!=null)return outer.where(name);
+        return null;
+    }
+
 
     protected void assign(int index, Object value){
         if(index>=values.length){

@@ -1,6 +1,7 @@
 package com.ljn.stone.ast;
 
 import com.ljn.stone.env.Env;
+import com.ljn.stone.env.Symbols;
 import com.ljn.stone.exception.StoneException;
 
 import java.util.Iterator;
@@ -11,6 +12,14 @@ public class ASTList extends ASTree {
 
     public ASTList(List<ASTree> list) {
         children = list;
+    }
+
+
+    @Override
+    public void lookUp(Symbols symbols) {
+        for(ASTree t:children){
+            t.lookUp(symbols);
+        }
     }
 
     @Override

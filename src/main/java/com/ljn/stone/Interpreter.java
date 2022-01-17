@@ -1,9 +1,11 @@
 package com.ljn.stone;
 
 import com.ljn.stone.ast.ASTree;
+import com.ljn.stone.ast.impl.NullStmt;
 import com.ljn.stone.env.BaseEnv;
 import com.ljn.stone.env.Env;
 import com.ljn.stone.env.NestedEnv;
+import com.ljn.stone.env.ResizeArrayEnv;
 import com.ljn.stone.exception.ParserException;
 import com.ljn.stone.naive.Naive;
 import com.ljn.stone.parser.ArrayParser;
@@ -20,6 +22,8 @@ public class Interpreter {
         System.out.println("----------------------------stone-----------------------------");
         while (lexer.peek(0) != Token.eof) {
             ASTree asTree = bp.parse(lexer);
+            asTree.lookUp(env.symbols());
+            if(asTree instanceof NullStmt)continue;
             System.out.println("=>" + asTree.eval(env));
         }
     }
@@ -28,6 +32,8 @@ public class Interpreter {
         Object res = null;
         while (lexer.peek(0) != Token.eof) {
             ASTree asTree = bp.parse(lexer);
+            if(asTree instanceof NullStmt)continue;
+            asTree.lookUp(env.symbols());
             //System.out.println(asTree + " "+asTree.getClass());
             res = asTree.eval(env);
         }
@@ -52,6 +58,6 @@ public class Interpreter {
     }
 
     public static void main(String[] args) throws FileNotFoundException, ParserException {
-        run(new ArrayParser(), new Naive().register(new NestedEnv()), args);
+        run(new ArrayParser(), new Naive().register(new ResizeArrayEnv()), args);
     }
 }

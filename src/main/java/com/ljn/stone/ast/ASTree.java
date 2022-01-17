@@ -1,10 +1,12 @@
 package com.ljn.stone.ast;
 
 import com.ljn.stone.env.Env;
+import com.ljn.stone.env.Symbols;
 
 import java.util.Iterator;
 
 public abstract class ASTree implements Iterable<ASTree>{
+    public void lookUp(Symbols symbols){}
     public abstract ASTree child(int i);
     public abstract int numChildren();
     public abstract Iterator<ASTree> children();

@@ -38,6 +38,8 @@ public class BasicParser {
         reserved.add(";");
         reserved.add(Token.eol);
         reserved.add("}");
+        reserved.add(")");
+
 
         operators.add("=", 1, Element.Operator.RIGHT);
         operators.add("==", 2, Element.Operator.LEFT);

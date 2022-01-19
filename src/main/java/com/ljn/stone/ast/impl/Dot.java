@@ -7,6 +7,7 @@ import com.ljn.stone.ast.Postfix;
 import com.ljn.stone.env.Env;
 import com.ljn.stone.exception.AccessException;
 import com.ljn.stone.exception.StoneException;
+import com.ljn.stone.member.opt.OptStoneObject;
 
 import java.util.List;
 
@@ -21,9 +22,9 @@ public class Dot extends Postfix {
     @Override
     public Object eval(Env env, Object value) {
         String member = name();
-        if(value instanceof StoneObject){
+        if(value instanceof OptStoneObject){
             try {
-               return  ((StoneObject) value).read(member);
+               return  ((OptStoneObject) value).read(member);
             } catch (AccessException e) {
 
             }

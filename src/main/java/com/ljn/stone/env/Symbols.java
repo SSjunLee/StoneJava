@@ -64,4 +64,8 @@ public class Symbols {
         }
         return location;
     }
+
+    public void append(Symbols s){
+        table.putAll(s.table);
+    }
 }

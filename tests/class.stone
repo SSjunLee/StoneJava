@@ -1,17 +1,17 @@
-class B
-{
-    v = 1
+class B {
+ v = 1
 }
-class A{
-    b = new B
-    def update(){
-       b.v = 22
+class A extends B{
+    b=1
+    //next = new A
+    next = new B
+    def update(x){
+       b = x
+       v = "hehehehe"
     }
 }
 a = new A
-a.update()
-print(a.b.v)
-
+print(a.next.v)
 
 
 

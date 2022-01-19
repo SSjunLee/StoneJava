@@ -1,10 +1,7 @@
 package com.ljn.stone.parser;
 
 import com.ljn.stone.Token;
-import com.ljn.stone.ast.impl.ClassBody;
-import com.ljn.stone.ast.impl.ClassStmt;
-import com.ljn.stone.ast.impl.Dot;
-import com.ljn.stone.ast.impl.NewStmt;
+import com.ljn.stone.ast.impl.*;
 import com.ljn.stone.rules.Rule;
 
 import static com.ljn.stone.rules.Rule.rule;
@@ -19,7 +16,7 @@ public class ClassParser extends FunctionParser {
             .option(rule().sep(Token.eol))
             .ast(classBody);
     // a = new A 目前暂时不支持构造函数
-    protected Rule newStmt = rule(NewStmt.class).sep("new").identifier(reserved);
+    protected Rule newStmt = rule(NewStmt.class).sep("new").identifier(Name.class,reserved);
 
     public ClassParser() {
         program.insertChoice(defClass);

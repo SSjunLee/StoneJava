@@ -3,6 +3,8 @@ package com.ljn.stone.member.opt;
 
 import com.ljn.stone.exception.AccessException;
 
+import java.util.Arrays;
+
 
 public class OptStoneObject {
     protected Object[] fields; //字段的值
@@ -40,5 +42,8 @@ public class OptStoneObject {
         return classInfo.method(this, i);
     }
 
-
+    @Override
+    public String toString() {
+       return "<obj "+hashCode()+" >";
+    }
 }

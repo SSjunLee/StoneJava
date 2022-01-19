@@ -8,6 +8,7 @@ import com.ljn.stone.env.Env;
 import com.ljn.stone.env.Symbols;
 import com.ljn.stone.exception.AccessException;
 import com.ljn.stone.exception.StoneException;
+import com.ljn.stone.member.opt.OptStoneObject;
 
 
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class BinaryExpr extends ASTList {
         else
             throw new StoneException("bad operator", this);
     }
-
+    /*
     private Object setFiled(StoneObject so, String filed, Object value) {
         try {
             so.write(filed, value);
@@ -101,7 +102,16 @@ public class BinaryExpr extends ASTList {
         } catch (AccessException e) {
             throw new StoneException("bad member access " + filed, this);
         }
-    }
+    }*/
+
+
+    private Object setFiled(OptStoneObject so, String filed, Object value) {
+        try {
+            so.write(filed, value);
+            return value;
+        } catch (AccessException e) {
+            throw new StoneException("bad member access " + filed, this);
+        }}
 
 
     private Object memberAssign(PrimaryExpr primary, Env env, Object rvalue) {
@@ -111,8 +121,15 @@ public class BinaryExpr extends ASTList {
         // a.b.c.d.e = x  这里相当于取出 （a.b.c.d）
         // 如果是a.b = x  相当于取出a
         Object t = primary.evalSubExpr(1, env);
+        /*
         if (t instanceof StoneObject) {
             StoneObject so = (StoneObject) t;
+            Dot dot = (Dot) primary.getPostfix(0); //这里dot就是e，即最右边
+            return setFiled(so, dot.name(), rvalue);
+        }*/
+
+        if(t instanceof OptStoneObject){
+            OptStoneObject so = (OptStoneObject) t;
             Dot dot = (Dot) primary.getPostfix(0); //这里dot就是e，即最右边
             return setFiled(so, dot.name(), rvalue);
         }

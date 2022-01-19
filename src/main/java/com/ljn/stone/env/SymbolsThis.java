@@ -6,7 +6,7 @@ import com.ljn.stone.exception.StoneException;
  * 记录this的保存位置
  */
 public class SymbolsThis extends Symbols{
-
+    public static final String NAME = "this";
     public SymbolsThis(Symbols outer) {
         super(outer);
         add("this");

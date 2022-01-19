@@ -28,4 +28,5 @@ public class MemberSymbols extends Symbols {
         }
         return location;
     }
+
 }

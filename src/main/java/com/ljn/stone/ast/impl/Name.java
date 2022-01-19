@@ -5,6 +5,7 @@ import com.ljn.stone.ast.ASTLeaf;
 import com.ljn.stone.env.Env;
 import com.ljn.stone.env.MemberSymbols;
 import com.ljn.stone.env.Symbols;
+import com.ljn.stone.env.SymbolsThis;
 import com.ljn.stone.exception.StoneException;
 import com.ljn.stone.member.opt.OptStoneObject;
 
@@ -75,4 +76,5 @@ public class Name extends ASTLeaf {
     protected OptStoneObject getThis(Env env) {
         return (OptStoneObject) env.get(0, 0);
     }
+
 }

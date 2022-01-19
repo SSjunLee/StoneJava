@@ -1,5 +1,6 @@
 package com.ljn.stone.ast.impl;
 
+import com.ljn.stone.env.SymbolsThis;
 import com.ljn.stone.member.StoneObject;
 import com.ljn.stone.ast.ASTLeaf;
 import com.ljn.stone.ast.ASTList;
@@ -8,6 +9,7 @@ import com.ljn.stone.env.Env;
 import com.ljn.stone.env.Symbols;
 import com.ljn.stone.exception.AccessException;
 import com.ljn.stone.exception.StoneException;
+import com.ljn.stone.member.opt.OptClassInfo;
 import com.ljn.stone.member.opt.OptStoneObject;
 
 
@@ -18,6 +20,10 @@ import static com.ljn.stone.ast.impl.BoolType.TRUE;
 import static com.ljn.stone.ast.impl.BoolType.FALSE;
 
 public class BinaryExpr extends ASTList {
+
+    protected OptClassInfo classInfo = null;
+    int index;
+
 
     public ASTree left() {
         return child(0);
@@ -106,12 +112,18 @@ public class BinaryExpr extends ASTList {
 
 
     private Object setFiled(OptStoneObject so, String filed, Object value) {
-        try {
-            so.write(filed, value);
-            return value;
-        } catch (AccessException e) {
-            throw new StoneException("bad member access " + filed, this);
-        }}
+        if (classInfo != so.getClassInfo()) {
+            classInfo = so.getClassInfo();
+            Integer i = classInfo.fieldIndex(filed);
+            if (i == null) {
+                throw new StoneException("bad member access " + filed, this);
+            }
+            index = i;
+        }
+        so.write(index, value);
+        //so.write(filed, value);
+        return value;
+    }
 
 
     private Object memberAssign(PrimaryExpr primary, Env env, Object rvalue) {
@@ -128,7 +140,7 @@ public class BinaryExpr extends ASTList {
             return setFiled(so, dot.name(), rvalue);
         }*/
 
-        if(t instanceof OptStoneObject){
+        if (t instanceof OptStoneObject) {
             OptStoneObject so = (OptStoneObject) t;
             Dot dot = (Dot) primary.getPostfix(0); //这里dot就是e，即最右边
             return setFiled(so, dot.name(), rvalue);
@@ -162,8 +174,8 @@ public class BinaryExpr extends ASTList {
     @Override
     public void lookUp(Symbols symbols) {
         ASTree left = left();
-        if (op().equals("=")){
-            if(left instanceof Name){
+        if (op().equals("=")) {
+            if (left instanceof Name) {
                 Name l = (Name) left;
                 l.lookUpForAssign(symbols);
                 right().lookUp(symbols);
@@ -186,7 +198,7 @@ public class BinaryExpr extends ASTList {
         }
         if (l instanceof Name) {
             Name name = (Name) l;
-            name.evalForAssign(env,rvalue);
+            name.evalForAssign(env, rvalue);
             //env.put(name.name(), rvalue);
             return rvalue;
         } else

@@ -46,4 +46,8 @@ public class OptStoneObject {
     public String toString() {
        return "<obj "+hashCode()+" >";
     }
+
+    public OptClassInfo getClassInfo() {
+        return classInfo;
+    }
 }

@@ -1,5 +1,7 @@
 package com.ljn.stone.env;
 
+import com.ljn.stone.exception.StoneException;
+
 import java.util.HashMap;
 
 public class Symbols {
@@ -64,6 +66,8 @@ public class Symbols {
         }
         return location;
     }
+
+
 
     public void append(Symbols s){
         table.putAll(s.table);
